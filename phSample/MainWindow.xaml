@@ -3,10 +3,158 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shell="clr-namespace:Microsoft.Windows.Shell;assembly=Microsoft.Windows.Shell"
+        xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
         xmlns:local="clr-namespace:phSample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="main window" Height="600" Width="1000"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        SnapsToDevicePixels="True">
+
+    <Window.Resources>
         
+        <!-- Style of this custom flat window-->
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="shell:WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <shell:WindowChrome GlassFrameThickness="-1"
+                                        ResizeBorderThickness="{Binding ResizeBorderSize,
+                                                                        Converter={local:IntToThicknessValueConverter}}"
+                                        CaptionHeight="{Binding TitleHeight}"
+                                        />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+
+                        <!-- Outer border with the dropshadow margin -->
+                        <Border Padding="{Binding OuterMarginSize,
+                                                  FallbackValue=6, 
+                                                  Converter={local:IntToThicknessValueConverter}}">
+
+                            <!-- Main window outline -->
+                            <Grid>
+
+                                <!-- Window border & drop shadow effect-->
+                                <Border Background="{StaticResource WindowBackgroundBrush}"
+                                        BorderBrush="{StaticResource WindowBorderBrush}"
+                                        BorderThickness="1">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0"
+                                                          Opacity="0.3"
+                                                          BlurRadius="10"
+                                                          Color="{StaticResource Blue}"/>
+                                    </Border.Effect>
+                                </Border>
+
+                                <!-- The main window content -->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <!-- Window title bar -->
+                                        <RowDefinition Height="{Binding TitleHeight,
+                                                                        FallbackValue=25,
+                                                                        Converter={local:IntToGridLengthValueConverter}}"/>
+                                        <!-- Content -->
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    
+                                    <!-- Title bar -->
+                                    <Grid Grid.Row="0"
+                                          Panel.ZIndex="1"
+                                          Background="{StaticResource WindowCaptionBackgroundBrush}">
+
+                                        <Grid.ColumnDefinitions>
+                                            <!-- Title -->
+                                            <ColumnDefinition Width="*"/>
+
+                                            <!-- Window control buttons-->
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        
+                                        <!-- Title -->
+                                        <TextBlock Grid.Column="0"
+                                                   Margin="10 0"    
+                                                   Text="{Binding Title,
+                                                                  RelativeSource={RelativeSource TemplatedParent},
+                                                                  FallbackValue=main Window}"
+                                                   Style="{StaticResource HeaderText}"/>
+                                        
+                                        
+                                        <!-- Window control buttons-->
+                                        <StackPanel Grid.Column="1"
+                                                    Orientation="Horizontal"
+                                                    shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                                    >
+                                        <Button Command="{Binding MinimizeCommand}"
+                                                    Style="{StaticResource WindowControlButton}"
+                                                    Content="{StaticResource MDMinimizeIcon}" Padding="0 0 0 -8"/>
+                                        <Button Command="{Binding MaximizeCommand}"
+                                                    Style="{StaticResource WindowControlButton}"
+                                                    Content="{StaticResource MDMaximizeIcon}" />
+                                        <Button Command="{Binding CloseCommand}"
+                                                    Style="{StaticResource WindowCloseButton}"
+                                                    Content="{StaticResource MDCloseIcon}"/>
+                                        </StackPanel>
+
+                                    </Grid>
+
+                                    <!-- Content-->
+                                    <Border Grid.Row="1">
+                                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                                    </Border>
+                                    
+                                </Grid>
+                            </Grid>
+
+
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate DataType="{x:Type local:ThirdTaskViewModel}">
+            <local:ThirdTaskControl/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:FifthTaskViewModel}">
+            <local:FifthTaskControl/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:FourthTaskViewModel}">
+            <local:ThirdTaskControl/>
+        </DataTemplate>
+        
+    </Window.Resources>
+    
+    <Grid Margin="5 10"
+          x:Name="MainContent">
+        <Grid.ColumnDefinitions>
+            <!-- The list of tasks -->
+            <ColumnDefinition Width="150"/>
+            <!-- Separator -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- The task's main area-->
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- The list of tasks-->
+        <local:TasksListControl Grid.Column="0"
+                                DataContext="{Binding TaskListViewModel}"/>
+        
+        <!-- Separator -->
+        <Border Grid.Column="1"
+                BorderThickness="0 0 1 0"
+                BorderBrush="{StaticResource GreySeparatorBrush}"
+                Margin="5 0"/>
+
+
+        <!-- The task`s main area -->
+        <Grid Grid.Column="2">
+            <ContentControl Content="{Binding SelectedTaskViewModel}"/>
+        </Grid>
     </Grid>
 </Window>

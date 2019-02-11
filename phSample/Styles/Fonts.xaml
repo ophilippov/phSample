@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:phSample"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <FontFamily x:Key="CirceRegular">pack://application;,,,/Fonts/#Circe Rounded</FontFamily>
+    <FontFamily x:Key="CirceLight">pack://application;,,,/Fonts/#Circe Rounded Light</FontFamily>
+    <FontFamily x:Key="CirceExtraLight">pack://application;,,,/Fonts/#Circe Rounded Extra Light</FontFamily>
+    <FontFamily x:Key="CirceThin">pack://application;,,,/Fonts/#Circe Rounded Thin</FontFamily>
+
+    
+    <FontFamily x:Key="FA5Regular">pack://application;,,,/Fonts/#Font Awesome 5 Free Regular</FontFamily>
+    <FontFamily x:Key="FA5BrandsRegular">pack://application;,,,/Fonts/#Font Awesome 5 Brands Regular</FontFamily>
+    <FontFamily x:Key="FA5Solid">pack://application;,,,/Fonts/#Font Awesome 5 Free Solid</FontFamily>
+    <FontFamily x:Key="FA4Regular">pack://application;,,,/Fonts/#FontAwesome</FontFamily>
+
+    <FontFamily x:Key="MaterialDesign">pack://application;,,,/Fonts/#Material Design Icons</FontFamily>
+
+    <!-- Font sizes -->
+    <system:Double x:Key="FontSizeSmall">13</system:Double>
+    <system:Double x:Key="FontSizeRegular">15</system:Double>
+    <system:Double x:Key="FontSizeSemiLarge">17</system:Double>
+    <system:Double x:Key="FontSizeLarge">20</system:Double>
+    
+    <!-- Icons -->
+    <system:String x:Key="MDMinimizeIcon">&#xf5b0;</system:String>
+    <system:String x:Key="MDMaximizeIcon">&#xf5af;</system:String>
+    <system:String x:Key="MDCloseIcon">&#xf156;</system:String>
+</ResourceDictionary>
