@@ -20,11 +20,10 @@ namespace phSample
         /// Shows a dialog to open the file
         /// </summary>
         /// <returns>True if the OpenFileDialog is successfully completed, otherwise false</returns>
-        public bool OpenFileDialog(string initialDirectory = "", string filter = "", int filterIndex = 1)
+        public bool OpenFileDialog(string filter = "", int filterIndex = 1)
         {
            
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = string.IsNullOrWhiteSpace(initialDirectory) ? @"e:\" : initialDirectory;
             openFileDialog.Filter = string.IsNullOrWhiteSpace(filter) ? @"All files (*.*)|*.*" : filter;
             openFileDialog.FilterIndex = filterIndex;
             openFileDialog.Multiselect = false;
@@ -51,10 +50,9 @@ namespace phSample
         /// Shows a dialog to save the file
         /// </summary>
         /// <returns>True if the SaveFileDialog is successfully completed, otherwise false</returns>
-        public bool SaveFileDialog(string initialDirectory = "", string filter = "", int filterIndex = 1)
+        public bool SaveFileDialog(string filter = "", int filterIndex = 1)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = string.IsNullOrWhiteSpace(initialDirectory) ? @"e:\" : initialDirectory;
             saveFileDialog.Filter = string.IsNullOrWhiteSpace(filter) ? @"All files (*.*)|*.*" : filter;
             saveFileDialog.FilterIndex = filterIndex;
 

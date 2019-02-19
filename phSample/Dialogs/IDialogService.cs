@@ -24,13 +24,13 @@ namespace phSample
         /// Shows a dialog to open the file
         /// </summary>
         /// <returns>True if the OpenFileDialog is successfully completed, otherwise false</returns>
-        bool OpenFileDialog(string initialDirectory = "", string filter = "", int filterIndex=1);
+        bool OpenFileDialog(string filter = "", int filterIndex=1);
 
         /// <summary>
         /// Shows a dialog to save the file
         /// </summary>
         /// <returns>True if the SaveFileDialog is successfully completed, otherwise false</returns>
-        bool SaveFileDialog(string initialDirectory = "", string filter = "", int filterIndex = 1);
+        bool SaveFileDialog(string filter = "", int filterIndex = 1);
 
     }
 }

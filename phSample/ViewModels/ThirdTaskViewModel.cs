@@ -100,7 +100,7 @@ namespace phSample
         /// </summary>
         public async void LoadModel()
         {
-            await RunCommand(() => LoadingIsRunning, async () => await LoadModelFromFileAsync());
+            await RunCommand(() => LoadingIsRunning, LoadModelFromFileAsync);
             
         }
 
@@ -126,13 +126,10 @@ namespace phSample
         {
 
             DefaultDialogService dialog = new DefaultDialogService();
-            if (dialog.OpenFileDialog(@"e:\3dmodels", @"3d models (*.obj)|*.obj|All files (*.*)|*.*") == true)
+            if (dialog.OpenFileDialog(@"3d models (*.obj)|*.obj|All files (*.*)|*.*") == true)
             {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    Models.Clear();
-                    LoadingMessageVisibility = true;
-                });
+                Models.Clear();
+                LoadingMessageVisibility = true;
 
                 await Task.Run(() =>
                 {

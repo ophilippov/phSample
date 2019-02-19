@@ -75,7 +75,7 @@ namespace phSample
         public FifthTaskViewModel() : base()
         {
             //Initialize commands
-            StartCommand = new RelayCommand(async () => await RunCommand(()=>AnimationIsRunning, async ()=> await StartAnimation()));
+            StartCommand = new RelayCommand(async () => await StartAnimation());
             StopCommand = new RelayCommand(StopAnimation);
             
         }
@@ -89,7 +89,8 @@ namespace phSample
         /// <returns></returns>
         public async Task StartAnimation()
         {
-            if(Models.Count > 1 && Models[1] is ModelVisual3D)
+            AnimationIsRunning = true;
+            if (Models.Count > 1 && Models[1] is ModelVisual3D)
             {
                 TranslateTransform3D translateTransform = new TranslateTransform3D(0, 0, 0);
                 Models[1].Transform = translateTransform;
@@ -113,19 +114,19 @@ namespace phSample
                 }
                 catch (OperationCanceledException)
                 {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        if(Models.Count > 1)
-                            Models[1].Transform = new TranslateTransform3D(0, 0, translateTransform.OffsetZ);
-                    });
+                    if (Models.Count > 1)
+                        Models[1].Transform = new TranslateTransform3D(0, 0, translateTransform.OffsetZ);
                 }
                 finally
                 {
                     mAnimationCancellationTokenSource.Dispose();
                     mAnimationCancellationTokenSource = null;
+                    AnimationIsRunning = false;
                 }
 
             }
+            else
+                AnimationIsRunning = false;
             
         }
 
